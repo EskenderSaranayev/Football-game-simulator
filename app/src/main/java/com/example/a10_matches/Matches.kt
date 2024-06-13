@@ -3,7 +3,7 @@ package com.example.a10_matches
 import kotlin.math.abs
 import kotlin.random.Random
 
-data class MatchResult(val team1: String, val team2: String, var score1: Int, var score2: Int)
+data class MatchResult(val team1: String, val team2: String, val score1: Int, val score2: Int)
 {  fun goalDifference(): Int = abs(score1 - score2)  }
 
 fun main(){
@@ -25,13 +25,17 @@ fun main(){
 
 
     val nonDrawMatches = matchResults.filter { it.score1 != it.score2 }
-    println("Match Results after removing draws:")
+    println("\nMatch Results after removing draws:")
     nonDrawMatches.forEach { println("$team1 ${it.score1} : ${it.score2} $team2") }
 
-    val maxGoalDifferenceSet = nonDrawMatches.maxByOrNull { it.goalDifference() }?.let { setOf(it) }?: setOf()
-    println("\nGames with the biggest margin of victory")
-    maxGoalDifferenceSet.forEach { println("$team1 ${it.score1} : ${it.score2} $team2 ")  }
 
+    val maxGoalDifference = matchResults.maxOfOrNull { it.goalDifference() } ?: 0
+    val maxGoalDifferenceSet = matchResults.filter { it.goalDifference() == maxGoalDifference }
+        .map { "${it.team1} ${it.score1} : ${it.score2} ${it.team2}" }
+        .toSet()
+
+    println("\nGames with the biggest margin of victory:")
+    maxGoalDifferenceSet.forEach { println(it) }
 }
 
 
