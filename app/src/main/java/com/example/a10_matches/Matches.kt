@@ -26,7 +26,7 @@ fun main(){
 
     val nonDrawMatches = matchResults.filter { it.score1 != it.score2 }
     println("\nMatch Results after removing draws:")
-    nonDrawMatches.forEach { println("$team1 ${it.score1} : ${it.score2} $team2") }
+    nonDrawMatches.forEach { println("$team1 ${it.score1} : ${it.score2} $team2")}
 
 
     val maxGoalDifference = matchResults.maxOfOrNull { it.goalDifference() } ?: 0
